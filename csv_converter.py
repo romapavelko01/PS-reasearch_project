@@ -1,4 +1,5 @@
 import csv
+from tqdm import tqdm
 
 
 def collect_rating(inp_string: str):
@@ -75,13 +76,13 @@ def read_pgn_file(inp_file):
     :return:
     """
     my_pgn_file = open(inp_file).readlines()
-    with open('chess_games.csv', 'w', newline='') as file:
+    with open('datasets/chess_games.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(["White rating", "Black rating",
                          "White result", "Black result", "Victory by checkmate", "Victory by time",
                          "Victory by resignation", "Opposite side castling", "Other development"])
         i = 0
-        while i < len(my_pgn_file):
+        for i in tqdm(range(len(my_pgn_file))):
             try:
                 # 18th row is a row having the result of a game
                 result = collect_result(my_pgn_file[i + 17])
