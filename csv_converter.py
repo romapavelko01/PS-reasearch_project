@@ -95,7 +95,8 @@ def read_pgn_file(inp_file):
                 writer.writerow(line_data)
                 i += 1
             except (TypeError, ValueError) as e:
-                # here
+                # here, we iterate through lines till we get to the next game,
+                # as each game starts with an empty line and the subsequent "Event" substring
                 while i < len(my_pgn_file) and not my_pgn_file[i].startswith("[Event"):
                     i += 1
             except IndexError:
